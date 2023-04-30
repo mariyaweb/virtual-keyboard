@@ -56,7 +56,7 @@ body {
   justify-content: space-between;
   align-items: center;
   gap: 10px;
-  font-size: 24px;
+  font-size: 22px;
   color: aliceblue;
 }
 
@@ -81,20 +81,32 @@ body {
 
 .btn-backspace {
   width: 130px;
+  font-size: 16px;
 }
 
-.btn-tab,
+.btn-tab {
+  width: 87px;
+  font-size: 16px;
+}
+
 .btn-del {
   width: 87px;
+  font-size: 16px;
 }
 
-.btn-caps,
+.btn-caps {
+  width: 80px;
+  font-size: 16px;
+}
+
 .btn-enter {
-  width: 114px;
+  width: 95px;
+  font-size: 16px;
 }
 
 .btn-shift {
   width: 114px;
+  font-size: 16px;
 }
 
 .btn-space {
@@ -105,4 +117,3 @@ body {
   font-size: 24px;
   margin-top: 20px;
 }
-
