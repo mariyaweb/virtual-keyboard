@@ -1,4 +1,6 @@
-import keysList from './src/keysList.js';
+import keysList from './js/keysList.js';
+
+localStorage.setItem('lang', 'ru');
 
 function initKeyBoard() {
   const mainBlock = document.createElement('main');
@@ -29,16 +31,17 @@ function initKeyBoard() {
   textareaField.rows = '10';
   textareaField.cols = '45';
   textareaField.name = 'text';
+  textareaField.autofocus = true;
 
   for (let i = 0; i < keysList.length;) {
     const keyItem = document.createElement('div');
+    keyItem.setAttribute('id', keysList[i].code);
     if (i < 14) {
       if (i === 13) {
         keyItem.classList.add('keyboard__btn', 'btn-backspace');
       } else {
         keyItem.classList.add('keyboard__btn', 'btn-key');
       }
-      keyItem.innerHTML = keysList[i].keyRuDown;
       keyboardRow1.appendChild(keyItem);
     } else if (i < 28) {
       if (i === 14) {
@@ -48,7 +51,7 @@ function initKeyBoard() {
       } else {
         keyItem.classList.add('keyboard__btn', 'btn-key');
       }
-      keyItem.innerHTML = keysList[i].keyRuDown;
+
       keyboardRow2.appendChild(keyItem);
     } else if (i < 42) {
       if (i === 28) {
@@ -58,7 +61,7 @@ function initKeyBoard() {
       } else {
         keyItem.classList.add('keyboard__btn', 'btn-key');
       }
-      keyItem.innerHTML = keysList[i].keyRuDown;
+
       keyboardRow3.appendChild(keyItem);
     } else if (i < 55) {
       if (i === 42 || i === 54) {
@@ -66,7 +69,7 @@ function initKeyBoard() {
       } else {
         keyItem.classList.add('keyboard__btn', 'btn-key');
       }
-      keyItem.innerHTML = keysList[i].keyRuDown;
+
       keyboardRow4.appendChild(keyItem);
     } else if (i < 64) {
       if (i === 58) {
@@ -74,8 +77,14 @@ function initKeyBoard() {
       } else {
         keyItem.classList.add('keyboard__btn', 'btn-key');
       }
-      keyItem.innerHTML = keysList[i].keyRuDown;
+
       keyboardRow5.appendChild(keyItem);
+    }
+
+    if (localStorage.getItem('lang') === 'ru') {
+      keyItem.innerHTML = keysList[i].keyRuDown;
+    } else if (localStorage.getItem('lang') === 'en') {
+      keyItem.innerHTML = keysList[i].keyEnDown;
     }
     i += 1;
   }
@@ -92,3 +101,39 @@ function initKeyBoard() {
   document.body.prepend(mainBlock);
 }
 initKeyBoard();
+
+const inputWindow = document.querySelector('.main__input');
+document.addEventListener('click', () => {
+  inputWindow.focus();
+});
+
+function keyDownHandler(event) {
+  event.preventDefault();
+  if (event.key === 'Backspace'
+       || event.key === 'Tab'
+       || event.key === 'Delete'
+       || event.key === 'CapsLock'
+       || event.key === 'Enter'
+       || event.key === 'Shift'
+       || event.key === 'Control'
+       || event.key === 'Meta'
+       || event.key === 'Alt'
+       || event.key === 'Space'
+       || event.key === 'ArrowLeft'
+       || event.key === 'ArrowUp'
+       || event.key === 'ArrowDown'
+       || event.key === 'ArrowRight') {
+    document.querySelector(`#${event.code}`).classList.add('active');
+  } else {
+    inputWindow.value += event.key;
+    document.querySelector(`#${event.code}`).classList.add('active');
+  }
+  inputWindow.focus();
+}
+
+function keyUpHandler(event) {
+  document.querySelector(`#${event.code}`).classList.remove('active');
+}
+
+inputWindow.addEventListener('keydown', keyDownHandler);
+inputWindow.addEventListener('keyup', keyUpHandler);

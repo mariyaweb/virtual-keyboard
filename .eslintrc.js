@@ -8,7 +8,6 @@ module.exports = {
     node: true,
   },
   rules: {
-    'no-console': 'off',
     'import/extensions': 0,
   },
 };
