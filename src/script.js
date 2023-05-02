@@ -126,13 +126,17 @@ function keyDownHandler(event) {
     document.querySelector(`#${event.code}`).classList.add('active');
   } else {
     inputWindow.value += event.key;
-    document.querySelector(`#${event.code}`).classList.add('active');
+    if (document.querySelector(`#${event.code}`) != null) {
+      document.querySelector(`#${event.code}`).classList.add('active');
+    }
   }
   inputWindow.focus();
 }
 
 function keyUpHandler(event) {
-  document.querySelector(`#${event.code}`).classList.remove('active');
+  if (document.querySelector(`#${event.code}`) != null) {
+    document.querySelector(`#${event.code}`).classList.remove('active');
+  }
 }
 
 inputWindow.addEventListener('keydown', keyDownHandler);
